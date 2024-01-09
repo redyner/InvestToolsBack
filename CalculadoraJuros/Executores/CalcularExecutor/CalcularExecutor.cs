@@ -1,4 +1,6 @@
-﻿using CalculadoraJuros.Interfaces;
+﻿using CalculadoraJuros.Entities;
+using CalculadoraJuros.Enums;
+using CalculadoraJuros.Interfaces;
 
 namespace CalculadoraJuros.Executores.CalcularExecutor
 {
@@ -7,35 +9,65 @@ namespace CalculadoraJuros.Executores.CalcularExecutor
         public async Task<CalcularExecutorResponse> Calcular(CalcularExecutorRequest request)
         {
 
-            decimal total = request.ValorInicial;
-            decimal investimento = 0;
-            decimal juros = 0;
+            CalcularExecutorResponse response = new CalcularExecutorResponse
+            {
+                Total = request.ValorInicial,
+                Investimento = 0,
+                Juros = 0
+            };
 
+            AplicaAportesETaxaPorPeriodo(request, response);
 
+            AjusteCasasDecimais(response);
+
+            return response;
+        }
+        private void AplicaAportesETaxaPorPeriodo(CalcularExecutorRequest request, CalcularExecutorResponse response)
+        {
             var mesAtual = DateTime.Now.Month;
+
+            CalculaPeriodo(request.Periodo);
+            CalculaTaxa(request.TaxaJuros);
 
             for (int i = 1; i <= request.Periodo.Valor; i++)
             {
                 var aporte = request.Aporte.Find(a => a.Mes == mesAtual);
                 if (aporte != null)
                 {
-                    total += aporte.Valor;
-                    investimento += aporte.Valor;
+                    response.Total += aporte.Valor;
+                    response.Investimento += aporte.Valor;
                 }
 
-                juros += total * request.TaxaJuros.Valor / 100;
+                response.Juros += response.Total * request.TaxaJuros.Valor;
 
-                total *= 1 + request.TaxaJuros.Valor / 100;
+                response.Total *= 1 + request.TaxaJuros.Valor;
+
+                if (mesAtual == 12)
+                    mesAtual = 0;
 
                 mesAtual++;
             }
+        }
 
-            return new CalcularExecutorResponse
-            {
-                Total = total,
-                Investimento = investimento,
-                Juros = juros
-            };
+        private void CalculaTaxa(TaxaJuros taxaJuros)
+        {
+            if (taxaJuros.TipoPeriodo == TipoPeriodo.Anual)
+                taxaJuros.Valor = taxaJuros.Valor / 12 / 100;
+            else
+                taxaJuros.Valor /= 100;
+        }
+
+        private void CalculaPeriodo(Periodo periodo)
+        {
+            if (periodo.TipoPeriodo == TipoPeriodo.Anual)
+                periodo.Valor *= 12;
+        }
+
+        private void AjusteCasasDecimais(CalcularExecutorResponse response)
+        {
+            response.Total = Math.Round(response.Total, 2);
+            response.Juros = Math.Round(response.Juros, 2);
+            response.Investimento = Math.Round(response.Investimento, 2);
         }
     }
 }
