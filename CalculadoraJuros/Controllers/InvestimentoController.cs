@@ -1,4 +1,5 @@
 using CalculadoraJuros.Executores.CalcularExecutor;
+using CalculadoraJuros.Interfaces;
 using Microsoft.AspNetCore.Mvc;
 
 namespace CalculadoraJuros.Controllers
@@ -8,16 +9,19 @@ namespace CalculadoraJuros.Controllers
     public class InvestimentoController : ControllerBase
     {
         private readonly ILogger<InvestimentoController> _logger;
+        private readonly ICalcularExecutor _calcularExecutor;
 
-        public InvestimentoController(ILogger<InvestimentoController> logger)
+        public InvestimentoController(ILogger<InvestimentoController> logger, ICalcularExecutor calcularExecutor)
         {
             _logger = logger;
+            _calcularExecutor = calcularExecutor;
         }
 
         [HttpPost]
-        public CalcularExecutorResponse Get([FromBody] CalcularExecutorRequest request)
+        public async Task<CalcularExecutorResponse> GetAsync([FromBody] CalcularExecutorRequest request)
         {
-            return new CalcularExecutorResponse();
+            _logger.LogInformation($"[Calcular] - {request}");
+            return await _calcularExecutor.Calcular(request);
         }
     }
 }

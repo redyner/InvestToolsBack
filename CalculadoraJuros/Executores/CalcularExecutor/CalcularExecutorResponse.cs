@@ -2,8 +2,8 @@
 {
     public class CalcularExecutorResponse
     {
-        public double Total { get; set; }
-        public double Investimento { get; set; }
-        public double Juros {  get; set; }
+        public decimal Total { get; set; }
+        public decimal Investimento { get; set; }
+        public decimal Juros {  get; set; }
     }
 }

@@ -1,4 +1,8 @@
+using CalculadoraJuros.Configs;
+
 var builder = WebApplication.CreateBuilder(args);
+
+builder.Services.ConfigureScoped();
 
 // Add services to the container.
 
