@@ -1,0 +1,26 @@
+<form [formGroup]="form">
+
+    <label for="first-name">Inicial: </label>
+    <input id="first-name" type="text" formControlName="inicial"> <br>
+  
+    <label for="last-name">Aporte: </label>
+    <input id="last-name" type="text" formControlName="aporte"> <br>
+
+    <label for="first-name">Período: </label>
+    <input id="first-name" type="text" formControlName="periodo"> 
+    <select formControlName="tipoPeriodoJuros" id="periodos">
+        <option value="1" >Mensal</option>
+        <option value="2">Anual</option>
+      </select> <br>
+  
+    <label for="last-name">Juros: </label>
+    <input id="last-name" type="text" formControlName="juros"> 
+    <select formControlName="tipoPeriodoPeriodo" id="periodos">
+        <option value="1">Mensal</option>
+        <option value="2">Anual</option>
+      </select> 
+
+  </form>
+  <p>Complete the form to enable button.</p>
+  <button type="submit" [disabled]="!form.valid" (click) = "onSubmit()">Submit</button>
+ 
