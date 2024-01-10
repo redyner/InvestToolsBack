@@ -1,26 +1,41 @@
 <form [formGroup]="form">
 
-    <label for="first-name">Inicial: </label>
-    <input id="first-name" type="text" formControlName="inicial"> <br>
-  
-    <label for="last-name">Aporte: </label>
-    <input id="last-name" type="text" formControlName="aporte"> <br>
+    <label >Inicial: </label>
+    <input type="number" formControlName="inicial"> <br>
+    
+    <div formGroupName="periodo">
+        <label >Período: </label>
+        <input type="number" formControlName="valor"> 
+        <select formControlName="tipoPeriodo" id="periodos">
+            <option value="1" >Mensal</option>
+            <option value="2">Anual</option>
+          </select> <br>
+    </div>
 
-    <label for="first-name">Período: </label>
-    <input id="first-name" type="text" formControlName="periodo"> 
-    <select formControlName="tipoPeriodoJuros" id="periodos">
-        <option value="1" >Mensal</option>
-        <option value="2">Anual</option>
-      </select> <br>
-  
-    <label for="last-name">Juros: </label>
-    <input id="last-name" type="text" formControlName="juros"> 
-    <select formControlName="tipoPeriodoPeriodo" id="periodos">
-        <option value="1">Mensal</option>
-        <option value="2">Anual</option>
-      </select> 
+    <div formGroupName="juros">
+        <label >Juros: </label>
+        <input type="number" formControlName="valor"> 
+        <select formControlName="tipoPeriodo" id="periodos">
+            <option value="1">Mensal</option>
+            <option value="2">Anual</option>
+        </select> 
+    </div>
+
+    <div formArrayName="aportes">
+        <h2>Aportes</h2>
+        <div *ngFor="let aporte of aportes.controls; let i=index" [formGroupName]="i">
+          <label >Aporte: </label>
+          <input type="number" formControlName="valor"> 
+          Mês: <select formControlName="mes">
+            <option *ngFor="let mes of meses" [value]="mes.value">{{ mes.name }}</option>
+          </select>         
+          <button type="button" (click)="removeAportes(i)">-</button>
+          <button type="button" (click)="addAportes()">+</button><br>
+        </div>
+      </div>
+
 
   </form>
-  <p>Complete the form to enable button.</p>
+  <br>
   <button type="submit" [disabled]="!form.valid" (click) = "onSubmit()">Calcular</button>
  
