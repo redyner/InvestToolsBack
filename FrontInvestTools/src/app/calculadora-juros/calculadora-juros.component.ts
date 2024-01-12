@@ -1,8 +1,8 @@
 import { Component } from '@angular/core';
 import { Validators, FormBuilder, FormArray } from '@angular/forms';
-import { tipoPeriodo } from '../Enums/tipo-periodo';
-import { mes } from '../Enums/mes';
-import { calculadoraJurosService } from './calculadora-juros.service';
+import { TipoPeriodo } from '../Enums/tipo-periodo';
+import { Mes } from '../Enums/mes';
+import { CalculadoraJurosService } from './calculadora-juros.service';
 
 @Component({
   selector: 'app-calculadora-juros',
@@ -11,8 +11,6 @@ import { calculadoraJurosService } from './calculadora-juros.service';
 })
 
 export class CalculadoraJurosComponent {
-
- 
 
   meses = [
     { value: 0, name: 'Todos' },
@@ -33,23 +31,23 @@ export class CalculadoraJurosComponent {
   form = this.formBuilder.group({
     inicial: [0],
     periodo: this.formBuilder.group({
-      valor: ['', Validators.required],
-      tipoPeriodo: [tipoPeriodo.mes, Validators.required]
+      valor: [0, Validators.required],
+      tipoPeriodo: [TipoPeriodo.mensal, Validators.required]
     }),
     juros: this.formBuilder.group({
-      valor: ['', Validators.required],
-      tipoPeriodo: [tipoPeriodo.mes, Validators.required]
+      valor: [0, Validators.required],
+      tipoPeriodo: [TipoPeriodo.mensal, Validators.required]
     }),
     aportes: this.formBuilder.array([
       this.formBuilder.group({
-        valor: ['', Validators.required],
-        mes: [mes.todos, Validators.required]
+        valor: [0, Validators.required],
+        mes: [Mes.todos, Validators.required]
       })
     ])
   });
 
 
-  constructor(private formBuilder: FormBuilder,  private calculadoraJurosService: calculadoraJurosService) { }
+  constructor(private formBuilder: FormBuilder,  private calculadoraJurosService: CalculadoraJurosService) { }
 
   calcular() {
 
@@ -67,14 +65,14 @@ export class CalculadoraJurosComponent {
     return this.form.get('aportes') as FormArray;
   }
 
-  addAportes() {
+  addAporte() {
     this.aportes.push(this.formBuilder.group({
       valor: ['', Validators.required],
-      mes: [mes.todos, Validators.required]
+      mes: [Mes.todos, Validators.required]
     }));
   }
 
-  removeAportes(index: number) {
+  removeAporte(index: number) {
     this.aportes.removeAt(index);
   }
 }

@@ -1,4 +1,4 @@
-export enum mes{
+export enum Mes{
    todos = 0,
    janeiro = 1,
    fevereiro = 2,

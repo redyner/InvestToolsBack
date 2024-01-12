@@ -1,4 +1,4 @@
-export enum tipoPeriodo{
-    mes = 1,
-    ano = 2
+export enum TipoPeriodo{
+    mensal = 1,
+    anual = 2
 }

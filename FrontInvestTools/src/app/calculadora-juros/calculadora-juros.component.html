@@ -6,18 +6,18 @@
     <div formGroupName="periodo">
         <label >Período: </label>
         <input type="number" formControlName="valor"> 
-        <select formControlName="tipoPeriodo" id="periodos">
-            <option value="1" >Mensal</option>
-            <option value="2">Anual</option>
+        <select formControlName="tipoPeriodo">
+            <option [ngValue]="1" >Mensal</option>
+            <option [ngValue]="2">Anual</option>
           </select> <br>
     </div>
 
     <div formGroupName="juros">
         <label >Juros: </label>
         <input type="number" formControlName="valor"> 
-        <select formControlName="tipoPeriodo" id="periodos">
-            <option value="1">Mensal</option>
-            <option value="2">Anual</option>
+        <select formControlName="tipoPeriodo">
+            <option [ngValue]="1">Mensal</option>
+            <option [ngValue]="2">Anual</option>
         </select> 
     </div>
 
@@ -29,8 +29,8 @@
           Mês: <select formControlName="mes">
             <option *ngFor="let mes of meses" [value]="mes.value">{{ mes.name }}</option>
           </select>         
-          <button type="button" (click)="removeAportes(i)">-</button>
-          <button type="button" (click)="addAportes()">+</button><br>
+          <button type="button" (click)="removeAporte(i)">-</button>
+          <button type="button" (click)="addAporte()">+</button><br>
         </div>
       </div>
 

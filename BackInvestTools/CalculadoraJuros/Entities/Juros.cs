@@ -2,7 +2,7 @@
 
 namespace CalculadoraJuros.Entities
 {
-    public class TaxaJuros
+    public class Juros
     {
         public decimal Valor {  get; set; }
         public TipoPeriodo TipoPeriodo { get; set; }

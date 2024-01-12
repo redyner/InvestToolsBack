@@ -4,10 +4,10 @@ namespace CalculadoraJuros.Executores.CalcularExecutor
 {
     public class CalcularExecutorRequest
     {
-        public decimal ValorInicial { get; set; }
-        public List<Aporte>? Aporte { get; set; }
+        public decimal Inicial { get; set; }
+        public List<Aporte>? Aportes { get; set; }
         public Periodo? Periodo { get; set; }
-        public TaxaJuros? TaxaJuros { get; set; }
+        public Juros? Juros { get; set; }
 
     }
 }
