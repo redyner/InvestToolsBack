@@ -29,14 +29,16 @@ namespace CalculadoraJuros.Executores.CalcularExecutor
             CalculaPeriodo(request.Periodo);
             CalculaTaxa(request.Juros);
 
+            var aporteMensal = request.Aportes.Find(a => a.Mes == 0);
+
             for (int i = 1; i <= request.Periodo.Valor; i++)
             {
-                var aporte = request.Aportes.Find(a => a.Mes == mesAtual || a.Mes == 0);
+                var aporte = request.Aportes?.Find(a => a.Mes == mesAtual);
+
                 if (aporte != null)
-                {
-                    response.Total += aporte.Valor;
-                    response.Investimento += aporte.Valor;
-                }
+                    AdicionarAporte(response, aporte.Valor);
+                else if(aporteMensal!=null)
+                    AdicionarAporte(response, aporteMensal.Valor);
 
                 response.Juros += response.Total * request.Juros.Valor;
 
@@ -47,6 +49,12 @@ namespace CalculadoraJuros.Executores.CalcularExecutor
 
                 mesAtual++;
             }
+        }
+
+        private void AdicionarAporte(CalcularExecutorResponse response, decimal valor)
+        {
+            response.Total += valor;
+            response.Investimento += valor;
         }
 
         private void CalculaTaxa(Juros juros)
