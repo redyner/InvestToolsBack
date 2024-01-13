@@ -1,8 +1,9 @@
 import { Component } from '@angular/core';
-import { Validators, FormBuilder, FormArray } from '@angular/forms';
+import { Validators, FormBuilder, FormArray, FormControl } from '@angular/forms';
 import { TipoPeriodo } from '../Enums/tipo-periodo';
 import { Mes } from '../Enums/mes';
 import { CalculadoraJurosService } from './calculadora-juros.service';
+import { CalcularResponse } from '../Interfaces/calcular-response.interface';
 
 @Component({
   selector: 'app-calculadora-juros',
@@ -12,6 +13,8 @@ import { CalculadoraJurosService } from './calculadora-juros.service';
 
 export class CalculadoraJurosComponent {
 
+  calculoResponse: CalcularResponse | undefined;
+  
   meses = [
     { value: 0, name: 'Todos' },
     { value: 1, name: 'Janeiro' },
@@ -29,9 +32,9 @@ export class CalculadoraJurosComponent {
   ];
 
   form = this.formBuilder.group({
-    inicial: [0],
+    inicial: [0, Validators.required],
     periodo: this.formBuilder.group({
-      valor: [0, Validators.required],
+      valor: [ 0, Validators.required],
       tipoPeriodo: [TipoPeriodo.mensal, Validators.required]
     }),
     juros: this.formBuilder.group({
@@ -55,6 +58,7 @@ export class CalculadoraJurosComponent {
     .postCalcular(this.form.value).subscribe(    
     response => {
       console.log('Resposta da API:', response);
+      this.calculoResponse = response;
     },
     error => {
       console.error('Erro ao chamar a API:', error);

@@ -1,23 +1,23 @@
-<form [formGroup]="form">
+<form [formGroup]="form" id="form">
 
     <label >Inicial: </label>
-    <input type="number" formControlName="inicial"> <br>
+    <input type="number" formControlName="inicial" id="inicial-input"> <br>
     
     <div formGroupName="periodo">
         <label >Período: </label>
-        <input type="number" formControlName="valor"> 
+        <input type="number" formControlName="valor">         
         <select formControlName="tipoPeriodo">
-            <option [ngValue]="1" >Mensal</option>
-            <option [ngValue]="2">Anual</option>
+            <option [ngValue]="1" >Meses</option>
+            <option [ngValue]="2">Anos</option>
           </select> <br>
     </div>
 
     <div formGroupName="juros">
         <label >Juros: </label>
-        <input type="number" formControlName="valor"> 
+        <input type="number" formControlName="valor" id="juros-input"> 
         <select formControlName="tipoPeriodo">
-            <option [ngValue]="1">Mensal</option>
-            <option [ngValue]="2">Anual</option>
+            <option [ngValue]="1">Por Mês</option>
+            <option [ngValue]="2">Por Ano</option>
         </select> 
     </div>
 
@@ -34,8 +34,15 @@
         </div>
       </div>
 
+      <br>
+      <button type="submit" (click) = "calcular()" [disabled]="!form.valid">Calcular</button>
+
+      <div *ngIf="calculoResponse">
+       <pre>{{ calculoResponse | json }}</pre>
+      </div>
 
   </form>
-  <br>
- <button type="submit" (click) = "calcular()">Calcular</button>  <!-- [disabled]="!form.valid"</button> -->
+
+
+
  
