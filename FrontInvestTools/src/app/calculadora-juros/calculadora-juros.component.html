@@ -23,17 +23,34 @@
         </select> 
     </div>
 
-    <div formArrayName="aportes">
-        <div *ngFor="let aporte of aportes.controls; let i=index" [formGroupName]="i" class="input-group mb-3">
-          <button type="button" (click)="removeAporte(i)" class="btn btn-primary" [disabled]="desabilitaRemocaoAportes">-</button>
-          <span class="input-group-text" id="inputGroup-sizing-default">Aporte</span>
-          <input type="number" formControlName="valor" class="form-control"> 
-          <select formControlName="mes" class="btn btn-outline-secondary dropdown-toggle">
-            <option *ngFor="let mes of meses" [value]="mes.value">{{ mes.name }}</option>
-          </select>                   
-          <button type="button" (click)="addAporte()" class="btn btn-primary" >+</button>
-        </div>
-      </div>
+    <div formGroupName="aporte"class="input-group mb-3">
+        <span class="input-group-text">Aporte</span>
+        <input type="number" formControlName="valor" class="form-control"> 
+        <select class="btn btn-outline-secondary dropdown-toggle" formControlName="mes">
+          <option *ngFor="let mes of meses" [ngValue]="mes.valor" >{{ mes.nome }}</option>
+        </select>                   
+        <button type="button" (click)="addAporte()" class="btn btn-primary" >+</button>
+    </div>
+
+    <h2>Aportes</h2>
+      <table class="table">
+        <thead>
+          <tr>
+            <th scope="col">#</th>
+            <th scope="col">Aporte</th>
+            <th scope="col">Período</th>
+            <th scope="col">Remover</th>
+          </tr>
+        </thead>
+        <tbody class="table-group-divider">
+          <tr *ngFor="let aporte of aportes; let i=index" [formGroupName]="i">
+            <th scope="row">{{i+1}}</th>
+            <td>{{ aporte.valor }}</td>
+            <td>{{ getNomeMes(aporte.mes) }}</td>
+            <td><button type="submit" (click)="removeAporte(i)" class="btn btn-primary">-</button></td>
+          </tr>
+        </tbody>
+      </table>
 
       <br>
       <button type="submit" (click) = "calcular()" [disabled]="!form.valid" class="btn btn-primary">Calcular</button>

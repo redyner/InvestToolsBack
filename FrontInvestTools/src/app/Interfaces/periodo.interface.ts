@@ -2,6 +2,6 @@ import { TipoPeriodo } from "../Enums/tipo-periodo";
 
 export interface Periodo
 {
-    valor: number,
-    tipoPeriodo: TipoPeriodo
+    valor: number | null,
+    tipoPeriodo: TipoPeriodo | null
 }

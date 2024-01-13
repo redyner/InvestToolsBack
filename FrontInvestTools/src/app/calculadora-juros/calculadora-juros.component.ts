@@ -4,6 +4,10 @@ import { TipoPeriodo } from '../Enums/tipo-periodo';
 import { Mes } from '../Enums/mes';
 import { CalculadoraJurosService } from './calculadora-juros.service';
 import { CalcularResponse } from '../Interfaces/calcular-response.interface';
+import { Aporte } from '../Interfaces/aporte.interface';
+import { CalcularRequest } from '../Interfaces/calcular-request.interface';
+import { Juros } from '../Interfaces/juros.interface';
+import { Periodo } from '../Interfaces/periodo.interface';
 
 @Component({
   selector: 'app-calculadora-juros',
@@ -14,23 +18,23 @@ import { CalcularResponse } from '../Interfaces/calcular-response.interface';
 export class CalculadoraJurosComponent {
 
   calculoResponse: CalcularResponse | undefined;
-  
-  desabilitaRemocaoAportes: boolean = true;
+
+  aportes: Aporte[] = [];
 
   meses = [
-    { value: 0, name: 'Mensal' },
-    { value: 1, name: 'Janeiro' },
-    { value: 2, name: 'Fevereiro' },
-    { value: 3, name: 'Março' },
-    { value: 4, name: 'Abril' },
-    { value: 5, name: 'Maio' },
-    { value: 6, name: 'Junho' },
-    { value: 7, name: 'Julho' },
-    { value: 8, name: 'Agosto' },
-    { value: 9, name: 'Setembro' },
-    { value: 10, name: 'Outubro' },
-    { value: 11, name: 'Novembro' },
-    { value: 12, name: 'Dezembro' }
+    { valor: 0,  nome: 'Mensal' },
+    { valor: 1,  nome: 'Janeiro' },
+    { valor: 2,  nome: 'Fevereiro' },
+    { valor: 3,  nome: 'Março' },
+    { valor: 4,  nome: 'Abril' },
+    { valor: 5,  nome: 'Maio' },
+    { valor: 6,  nome: 'Junho' },
+    { valor: 7,  nome: 'Julho' },
+    { valor: 8,  nome: 'Agosto' },
+    { valor: 9,  nome: 'Setembro' },
+    { valor: 10, nome:  'Outubro' },
+    { valor: 11, nome:  'Novembro' },
+    { valor: 12, nome:  'Dezembro' }
   ];
 
   form = this.formBuilder.group({
@@ -43,12 +47,10 @@ export class CalculadoraJurosComponent {
       valor: [0, Validators.required],
       tipoPeriodo: [TipoPeriodo.mensal, Validators.required]
     }),
-    aportes: this.formBuilder.array([
-      this.formBuilder.group({
-        valor: [0, Validators.required],
-        mes: [Mes.mensal, Validators.required]
-      })
-    ])
+    aporte: this.formBuilder.group({
+      valor: [0, Validators.required],
+      mes: [Mes.mensal, Validators.required]
+    })
   });
 
 
@@ -56,8 +58,15 @@ export class CalculadoraJurosComponent {
 
   calcular() {
 
+    const request: CalcularRequest = 
+    { 
+      Aportes: this.aportes,
+      Periodo: this.form.get('periodo')?.value,
+      Juros: this.form.get('juros')?.value
+    };
+
     this.calculadoraJurosService
-    .postCalcular(this.form.value).subscribe(    
+    .postCalcular(request).subscribe(    
     response => {
       console.log('Resposta da API:', response);
       this.calculoResponse = response;
@@ -67,24 +76,20 @@ export class CalculadoraJurosComponent {
     });
   }
 
-  get aportes() {
-    return this.form.get('aportes') as FormArray;
-  }
-
   addAporte() {
-    this.aportes.push(this.formBuilder.group({
-      valor: [0, Validators.required],
-      mes: [Mes.mensal, Validators.required]
-    }));
-    this.validaRemocaoAportes();
+    console.log(this.form.get('aporte')?.value);
+    let aporte: Aporte = {
+      valor: this.form.get('aporte')?.value.valor ?? 0,
+      mes:  this.form.get('aporte')?.value.mes ?? Mes.mensal
+    };
+    this.aportes.push(aporte);
   }
 
   removeAporte(index: number) {
-    this.aportes.removeAt(index);
-    this.validaRemocaoAportes();
+    this.aportes.splice(index, 1);
   }
 
-  validaRemocaoAportes(){
-    this.desabilitaRemocaoAportes = this.aportes.length <= 1;
+  getNomeMes(valor: number) : string{
+    return this.meses.find(mes => mes.valor === valor)?.nome ?? "";
   }
 }
