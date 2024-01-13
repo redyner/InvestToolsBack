@@ -1,5 +1,5 @@
 export enum Mes{
-   todos = 0,
+   mensal = 0,
    janeiro = 1,
    fevereiro = 2,
    marco = 3,

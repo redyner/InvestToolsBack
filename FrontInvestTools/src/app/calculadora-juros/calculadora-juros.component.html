@@ -1,41 +1,42 @@
 <form [formGroup]="form" id="form">
 
-    <label >Inicial: </label>
-    <input type="number" formControlName="inicial" id="inicial-input"> <br>
+  <div class="input-group mb-3">
+    <span class="input-group-text" id="inputGroup-sizing-default">Inicial</span>
+    <input type="number" formControlName="inicial" class="form-control">
+  </div> 
     
-    <div formGroupName="periodo">
-        <label >Período: </label>
-        <input type="number" formControlName="valor">         
-        <select formControlName="tipoPeriodo">
+    <div formGroupName="periodo" class="input-group mb-3">
+      <span class="input-group-text" id="inputGroup-sizing-default">Período</span>
+        <input type="number" formControlName="valor" class="form-control">         
+        <select formControlName="tipoPeriodo" class="btn btn-outline-secondary dropdown-toggle">
             <option [ngValue]="1" >Meses</option>
             <option [ngValue]="2">Anos</option>
           </select> <br>
     </div>
 
-    <div formGroupName="juros">
-        <label >Juros: </label>
-        <input type="number" formControlName="valor" id="juros-input"> 
-        <select formControlName="tipoPeriodo">
+    <div formGroupName="juros" class="input-group mb-3">
+      <span class="input-group-text" id="inputGroup-sizing-default">Juros</span>
+        <input type="number" formControlName="valor" class="form-control"> 
+        <select formControlName="tipoPeriodo" class="btn btn-outline-secondary dropdown-toggle">
             <option [ngValue]="1">Por Mês</option>
             <option [ngValue]="2">Por Ano</option>
         </select> 
     </div>
 
     <div formArrayName="aportes">
-        <h2>Aportes</h2>
-        <div *ngFor="let aporte of aportes.controls; let i=index" [formGroupName]="i">
-          <label >Aporte: </label>
-          <input type="number" formControlName="valor"> 
-          Mês: <select formControlName="mes">
+        <div *ngFor="let aporte of aportes.controls; let i=index" [formGroupName]="i" class="input-group mb-3">
+          <button type="button" (click)="removeAporte(i)" class="btn btn-primary" [disabled]="desabilitaRemocaoAportes">-</button>
+          <span class="input-group-text" id="inputGroup-sizing-default">Aporte</span>
+          <input type="number" formControlName="valor" class="form-control"> 
+          <select formControlName="mes" class="btn btn-outline-secondary dropdown-toggle">
             <option *ngFor="let mes of meses" [value]="mes.value">{{ mes.name }}</option>
-          </select>         
-          <button type="button" (click)="removeAporte(i)">-</button>
-          <button type="button" (click)="addAporte()">+</button><br>
+          </select>                   
+          <button type="button" (click)="addAporte()" class="btn btn-primary" >+</button>
         </div>
       </div>
 
       <br>
-      <button type="submit" (click) = "calcular()" [disabled]="!form.valid">Calcular</button>
+      <button type="submit" (click) = "calcular()" [disabled]="!form.valid" class="btn btn-primary">Calcular</button>
 
       <div *ngIf="calculoResponse">
        <pre>{{ calculoResponse | json }}</pre>

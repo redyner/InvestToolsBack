@@ -15,8 +15,10 @@ export class CalculadoraJurosComponent {
 
   calculoResponse: CalcularResponse | undefined;
   
+  desabilitaRemocaoAportes: boolean = true;
+
   meses = [
-    { value: 0, name: 'Todos' },
+    { value: 0, name: 'Mensal' },
     { value: 1, name: 'Janeiro' },
     { value: 2, name: 'Fevereiro' },
     { value: 3, name: 'Março' },
@@ -44,7 +46,7 @@ export class CalculadoraJurosComponent {
     aportes: this.formBuilder.array([
       this.formBuilder.group({
         valor: [0, Validators.required],
-        mes: [Mes.todos, Validators.required]
+        mes: [Mes.mensal, Validators.required]
       })
     ])
   });
@@ -71,12 +73,18 @@ export class CalculadoraJurosComponent {
 
   addAporte() {
     this.aportes.push(this.formBuilder.group({
-      valor: ['', Validators.required],
-      mes: [Mes.todos, Validators.required]
+      valor: [0, Validators.required],
+      mes: [Mes.mensal, Validators.required]
     }));
+    this.validaRemocaoAportes();
   }
 
   removeAporte(index: number) {
     this.aportes.removeAt(index);
+    this.validaRemocaoAportes();
+  }
+
+  validaRemocaoAportes(){
+    this.desabilitaRemocaoAportes = this.aportes.length <= 1;
   }
 }
