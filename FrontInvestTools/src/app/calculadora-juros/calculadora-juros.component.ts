@@ -61,22 +61,20 @@ export class CalculadoraJurosComponent {
 
     const request: CalcularRequest = 
     { 
-      Aportes: this.aportes,
-      Periodo: this.form.get('periodo')?.value,
-      Juros: this.form.get('juros')?.value
+      aportes: this.aportes,
+      periodo: this.form.get('periodo')?.value,
+      juros: this.form.get('juros')?.value
     };
 
     this.calculadoraJurosService
     .postCalcular(request).subscribe(    
     response => {
-      console.log('Resposta da API:', response);
       this.calculoResponse = response;
+      this.openDialog();
     },
     error => {
       console.error('Erro ao chamar a API:', error);
-    });
-
-    this.openDialog();
+    });    
   }
 
   addAporte() {
@@ -97,7 +95,7 @@ export class CalculadoraJurosComponent {
 
   openDialog(): void {
     const dialogRef = this.dialog.open(ResultadoCalculoComponent, {
-      width: '250px', // Configure conforme necessário
+      data: this.calculoResponse
     });
   }
 

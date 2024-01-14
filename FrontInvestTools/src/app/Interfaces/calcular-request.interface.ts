@@ -3,7 +3,7 @@ import { Juros } from "./juros.interface";
 import { Periodo } from "./periodo.interface";
 
 export interface CalcularRequest{
-Aportes: Aporte[];
-Periodo: Periodo | undefined;
-Juros: Juros | undefined;
+aportes: Aporte[];
+periodo: Periodo | undefined;
+juros: Juros | undefined;
 }

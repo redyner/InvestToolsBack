@@ -1,5 +1,5 @@
 export interface CalcularResponse{
-Total: number;
-Investimento: number;
-Juros: number;
+total: number;
+investimento: number;
+juros: number;
 }

@@ -55,10 +55,6 @@
       <br>
       <button type="submit" (click) = "calcular()" [disabled]="!form.valid" class="btn btn-primary">Calcular</button>
 
-      <div *ngIf="calculoResponse">
-       <pre>{{ calculoResponse | json }}</pre>
-      </div>
-
   </form>
 
 
