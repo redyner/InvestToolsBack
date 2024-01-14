@@ -10,6 +10,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MatDialogModule } from '@angular/material/dialog';
 import { registerLocaleData } from '@angular/common';
 import localPt from '@angular/common/locales/pt';
+import { MatIconModule } from '@angular/material/icon';
 
 registerLocaleData(localPt, 'pt-BR');
 
@@ -26,7 +27,8 @@ registerLocaleData(localPt, 'pt-BR');
     ReactiveFormsModule,
     HttpClientModule,
     BrowserAnimationsModule,
-    MatDialogModule
+    MatDialogModule,
+    MatIconModule
   ],
   providers: [
     provideClientHydration(),
