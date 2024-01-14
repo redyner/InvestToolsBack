@@ -6,6 +6,9 @@ import { CalculadoraJurosService } from './calculadora-juros.service';
 import { CalcularResponse } from '../Interfaces/calcular-response.interface';
 import { Aporte } from '../Interfaces/aporte.interface';
 import { CalcularRequest } from '../Interfaces/calcular-request.interface';
+import { MatDialog } from '@angular/material/dialog';
+import { ResultadoCalculoComponent } from '../modais/resultado-calculo/resultado-calculo.component';
+
 
 @Component({
   selector: 'app-calculadora-juros',
@@ -52,7 +55,7 @@ export class CalculadoraJurosComponent {
   });
 
 
-  constructor(private formBuilder: FormBuilder,  private calculadoraJurosService: CalculadoraJurosService) { }
+  constructor(private formBuilder: FormBuilder,  private calculadoraJurosService: CalculadoraJurosService, private dialog: MatDialog) { }
 
   calcular() {
 
@@ -72,6 +75,8 @@ export class CalculadoraJurosComponent {
     error => {
       console.error('Erro ao chamar a API:', error);
     });
+
+    this.openDialog();
   }
 
   addAporte() {
@@ -89,4 +94,11 @@ export class CalculadoraJurosComponent {
   getNomeMes(valor: number) : string{
     return this.meses.find(mes => mes.valor === valor)?.nome ?? "";
   }
+
+  openDialog(): void {
+    const dialogRef = this.dialog.open(ResultadoCalculoComponent, {
+      width: '250px', // Configure conforme necessário
+    });
+  }
+
 }

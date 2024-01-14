@@ -7,19 +7,26 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { CalculadoraJurosComponent } from './calculadora-juros/calculadora-juros.component';
 import { HttpClientModule } from '@angular/common/http';
+import { ResultadoCalculoComponent } from './modais/resultado-calculo/resultado-calculo.component';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { MatDialogModule } from '@angular/material/dialog';
+
 
 
 @NgModule({
   declarations: [
     AppComponent,
-    CalculadoraJurosComponent
+    CalculadoraJurosComponent,
+    ResultadoCalculoComponent
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     FormsModule,
     ReactiveFormsModule,
-    HttpClientModule
+    HttpClientModule,
+    BrowserAnimationsModule,
+    MatDialogModule
   ],
   providers: [
     provideClientHydration()
