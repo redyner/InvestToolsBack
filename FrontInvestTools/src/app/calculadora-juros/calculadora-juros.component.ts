@@ -1,13 +1,11 @@
 import { Component } from '@angular/core';
-import { Validators, FormBuilder, FormArray, FormControl } from '@angular/forms';
+import { Validators, FormBuilder } from '@angular/forms';
 import { TipoPeriodo } from '../Enums/tipo-periodo';
 import { Mes } from '../Enums/mes';
 import { CalculadoraJurosService } from './calculadora-juros.service';
 import { CalcularResponse } from '../Interfaces/calcular-response.interface';
 import { Aporte } from '../Interfaces/aporte.interface';
 import { CalcularRequest } from '../Interfaces/calcular-request.interface';
-import { Juros } from '../Interfaces/juros.interface';
-import { Periodo } from '../Interfaces/periodo.interface';
 
 @Component({
   selector: 'app-calculadora-juros',
@@ -77,7 +75,6 @@ export class CalculadoraJurosComponent {
   }
 
   addAporte() {
-    console.log(this.form.get('aporte')?.value);
     let aporte: Aporte = {
       valor: this.form.get('aporte')?.value.valor ?? 0,
       mes:  this.form.get('aporte')?.value.mes ?? Mes.mensal

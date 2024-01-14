@@ -43,7 +43,7 @@
           </tr>
         </thead>
         <tbody class="table-group-divider">
-          <tr *ngFor="let aporte of aportes; let i=index" [formGroupName]="i">
+          <tr *ngFor="let aporte of aportes; let i=index">
             <th scope="row">{{i+1}}</th>
             <td>{{ aporte.valor }}</td>
             <td>{{ getNomeMes(aporte.mes) }}</td>
