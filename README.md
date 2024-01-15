@@ -66,3 +66,7 @@ Set-ExecutionPolicy -Scope CurrentUser -ExecutionPolicy RemoteSigned
 
 - Cálculo de rendimentos com aportes irregulares
 
+
+## Referência
+
+ - [Ferramenta utilizada para criação deste README](https://readme.so/pt)
