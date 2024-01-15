@@ -13,7 +13,8 @@ namespace CalculadoraJuros.Executores.CalcularExecutor
             {
                 Total = request.Inicial,
                 Investimento = 0,
-                Juros = 0
+                Juros = 0,
+                RendaMensal = 0
             };
 
             AplicaAportesETaxaPorPeriodo(request, response);
@@ -49,6 +50,8 @@ namespace CalculadoraJuros.Executores.CalcularExecutor
 
                 mesAtual++;
             }
+
+            response.RendaMensal = response.Total * request.Juros.Valor;
         }
 
         private void AdicionarAporte(CalcularExecutorResponse response, decimal valor)

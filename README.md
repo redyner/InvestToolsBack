@@ -9,7 +9,6 @@ Ferramentas para auxiliar os investimentos
 - [@redyner](https://github.com/redyner)
 
 
-
 ## Rodando localmente
 
 Clone o projeto
@@ -45,6 +44,10 @@ Set-ExecutionPolicy -Scope CurrentUser -ExecutionPolicy RemoteSigned
 
 - Cálculo de rendimentos com aportes irregulares
 
+
+## Melhorias
+
+- Inclusão de Renda Mensal após final do período
 
 ## Referência
 
