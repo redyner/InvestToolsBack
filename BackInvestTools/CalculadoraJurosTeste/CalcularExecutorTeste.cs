@@ -18,7 +18,7 @@ namespace CalculadoraJurosTeste
         {
             var request = new CalcularExecutorRequestBuilder().Build();
 
-            var response = new CalcularExecutorResponse { Total = 25607.81M, Investimento = 13000M, Juros = 12507.81M };
+            var response = new CalcularExecutorResponse { Total = 25607.81M, Investimento = 13000M, Juros = 12507.81M, RendaMensal = 256.08M };
 
             var executor = new CalcularExecutor();
 
@@ -27,6 +27,7 @@ namespace CalculadoraJurosTeste
             Assert.AreEqual(response.Total, result.Total);
             Assert.AreEqual(response.Investimento, result.Investimento);
             Assert.AreEqual(response.Juros, result.Juros);
+            Assert.AreEqual(response.RendaMensal, result.RendaMensal);
         }
 
         [Test]
@@ -38,7 +39,7 @@ namespace CalculadoraJurosTeste
 
             request.Periodo.TipoPeriodo = TipoPeriodo.Mensal;
 
-            var response = new CalcularExecutorResponse { Total = 2586.63M, Investimento = 1100M, Juros = 1386.63M };
+            var response = new CalcularExecutorResponse { Total = 2586.63M, Investimento = 1100M, Juros = 1386.63M, RendaMensal = 310.40M };
 
             var executor = new CalcularExecutor();
 
@@ -47,6 +48,7 @@ namespace CalculadoraJurosTeste
             Assert.AreEqual(response.Total, result.Total);
             Assert.AreEqual(response.Investimento, result.Investimento);
             Assert.AreEqual(response.Juros, result.Juros);
+            Assert.AreEqual(response.RendaMensal, result.RendaMensal);
         }
     }
 }

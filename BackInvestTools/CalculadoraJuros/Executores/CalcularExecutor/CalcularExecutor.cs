@@ -79,6 +79,7 @@ namespace CalculadoraJuros.Executores.CalcularExecutor
             response.Total = Math.Round(response.Total, 2);
             response.Juros = Math.Round(response.Juros, 2);
             response.Investimento = Math.Round(response.Investimento, 2);
+            response.RendaMensal = Math.Round(response.RendaMensal, 2);
         }
     }
 }
