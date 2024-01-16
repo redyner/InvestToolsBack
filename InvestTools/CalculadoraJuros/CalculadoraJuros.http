@@ -1,6 +1,6 @@
 @CalculadoraJuros_HostAddress = http://localhost:5127
 
-GET {{CalculadoraJuros_HostAddress}}/weatherforecast/
+GET {{CalculadoraJuros_HostAddress}}/calculadorajuros/
 Accept: application/json
 
 ###
