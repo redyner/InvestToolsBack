@@ -21,7 +21,6 @@ jobs:
         with:
           dotnet-version: '8.x'
           include-prerelease: true
-          node-version: '20'
 
       - name: Build with dotnet
         run: dotnet build --configuration Release
@@ -53,9 +52,9 @@ jobs:
       - name: Login to Azure
         uses: azure/login@v1
         with:
-          client-id: ${{ secrets.AZUREAPPSERVICE_CLIENTID_6AC31AB1410C4E36AC355A728747C8C3 }}
-          tenant-id: ${{ secrets.AZUREAPPSERVICE_TENANTID_C0415546FF364E0AA662EF8282A57529 }}
-          subscription-id: ${{ secrets.AZUREAPPSERVICE_SUBSCRIPTIONID_70A8CCB9BADD4EB381061CD1422B6F47 }}
+          client-id: ${{ secrets.AZUREAPPSERVICE_CLIENTID_D112305F65E64C3F95D153FCF327C6BE }}
+          tenant-id: ${{ secrets.AZUREAPPSERVICE_TENANTID_C309339A626549CE903D861B2859223E }}
+          subscription-id: ${{ secrets.AZUREAPPSERVICE_SUBSCRIPTIONID_E9C6A7E704BF459B963A2AEB66FA5B20 }}
 
       - name: Deploy to Azure Web App
         id: deploy-to-webapp
